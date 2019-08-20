@@ -1,0 +1,1 @@
+@pyinstaller -c -F protoc-gen-lua --hidden-import google.protobuf  --hidden-import pkgutil
