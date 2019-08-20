@@ -17,7 +17,7 @@ from cStringIO import StringIO
 import plugin_pb2
 import google.protobuf.descriptor_pb2 as descriptor_pb2
 
-pathPrefix = "Model/Network/protos/"
+pathPrefix = "Network/protos/"
 returnName = "pb"
 descriptorName = "descriptor"
 
