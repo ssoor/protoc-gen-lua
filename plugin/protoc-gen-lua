@@ -153,7 +153,7 @@ class Env(object):
             node = self.lookup_name(type_name)
         except:
             # if the child doesn't be founded, it must be in this file
-            return type_name[len('.'.join(self.package)) + 1:]
+            return type_name[1 + len('.'.join(self.package)) + 1:] # [.][self.package][.] 1 + n + 1
         if node.filename != self.filename:
             return node.filename + '_pb.' + node.get_local_name()
         return node.get_local_name()
@@ -331,7 +331,7 @@ def code_gen_field(index, field_desc, env):
 
         type_name = type_name[:pos] + type_name[pos:].upper().replace('.', '_')
         if pos is 0 :
-            type_name = descriptorName + "." + type_name
+            type_name = descriptorName + '.' + type_name
         if field_desc.type == FDP.TYPE_MESSAGE:
             context('.message_type = %s\n' % type_name)
         else:
@@ -387,7 +387,7 @@ def code_gen_message(message_descriptor, env, containing_type = None):
     context('.extensions = {%s}\n' % ', '.join(extensions))
 
     if containing_type:
-        context('.containing_type = %s\n' % containing_type)
+        context('.containing_type = %s.%s\n' %  (descriptorName,containing_type))
 
     env.message.append('%s.%s = protobuf.Message(%s)\n' % (returnName,full_name,
                                                         descriptorName + "." + obj_name))
